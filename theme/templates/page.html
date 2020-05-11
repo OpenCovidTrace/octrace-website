@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block header_right %}{{ page.fdate }}{% endblock %}
+{% block header_left %}{% endblock %}
+
+{% block body %}
+<section class="section-basic">
+    <div class="container">
+        <div class="row"><div class="col-md-8 offset-md-2">
+
+        <h1 class="text-center alt">{{ page.h1 }}</h1>
+        {% block page_content %}
+        {{ page.content }}
+        {% endblock %}
+
+        </div></div>
+    </div>
+</section>
+{% endblock %}
+
+
+{% block content %} {% endblock %}

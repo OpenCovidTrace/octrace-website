@@ -1,0 +1,5 @@
+User-Agent: *
+Allow: /
+
+Sitemap: https://covidapp.co.uk/sitemap.xml
+Host: https://covidapp.co.uk

@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+
+{% block meta_title %}
+<title>Newsroom - Open COVID Trace</title>
+<meta name="description" content="Get the Latest COVID-19 news and Government Updates. WHO, CDC, ECDC and Guernsey Public Health">
+{% endblock %}
+
+{% block body %}
+
+<section class="section-basic bg-main section-official">
+    {% if page.page_num == 1 %}
+    <div class="container text-center">
+        <h2>Current Status of the Pandemic</h2>
+         <a class="text-muted text-small" href="https://www.ecdc.europa.eu/en/covid-19-pandemic">
+         Source: ECDC, last update: {{ COVID_STATS.updated }}
+        </a>
+
+        <div class="d-lg-flex flex-lg-row justify-content-center">
+            <div class="p-3 m-3 stats-block">
+                <h3>Worldwide</h3>
+                <div class="text-big text-warning">{{ COVID_STATS.all_cases }}</div>
+                <div class="text-big text-danger">{{ COVID_STATS.all_deaths }}</div>
+            </div>
+            <div class="p-3 m-3 stats-block">
+                <h3>EU/EEA and the UK</h3>
+                <div class="text-big text-warning">{{ COVID_STATS.eu_cases }}</div>
+                <div class="text-big text-danger">{{ COVID_STATS.eu_deaths }}</div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="container">
+        {% if page.pages_num == 1 %}
+        <h1 class="text-center">Latest news</h1>
+        {% else %}
+        <h1 class="text-center">news - page {{ page.pages_num }}</h1>
+        {% endif %}
+        <div class="row">
+            <div class="col-md-8 offset-sm-2">
+                <div class="list-group">
+                {% for article in page.urls %}
+                <div class="list-group-item">
+                    <div class="row d-md-flex">
+                    {% set pic = article.picture_preview %}
+                    {% if not pic %}
+                    {% set pic = article.picture_big %}
+                    {% endif %}
+
+                    <a href="{{ ROOT_URL }}/{{ article.url }}" class="col-md-3 d-flex flex-column justify-content-center img">
+                    {% if pic %}
+                        <img src="{{ pic }}" alt="{{ article.source }}" class="img-responsive" />
+                    {% else %}
+                        <img src="{{ article.source_pic }}" alt="{{ article.source }}" class="img-responsive" />
+                    {% endif %}
+                    </a>
+                    <div class="col-md-9 d-flex flex-column justify-content-center img">
+                        <a href="{{ ROOT_URL }}/{{ article.url }}">{{ article.title }}</a>
+                        <div class="d-flex justify-content-between">
+                            <div class="text-muted">{{ article.date_str }}</div>
+                            <a href="{{ article.source_url }}" class="blockquote-footer">{{ article.source }}</a>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                {% endfor %}
+                </div>
+                <br><br>
+                {% if page.pages > 1 %}
+                <ul class="pagination">
+                {% for i in range(page.pages) %}
+                {% if i == 0 %}
+                    {% set url = 'newsroom.html' %}
+                {% else %}
+                    {% set url = 'newsroom-{}.html'.format(i + 1) %}
+                {% endif %}
+                <li class="page-item {% if i + 1 == page.pages_num %}active{% endif %}">
+                    <a class="page-link" href="/{{ url }}">{{ i + 1 }}</a>
+                </li>
+                {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+{% if page.pages_num == 1 %}
+<section class="section-basic bg-second section-official">
+    <svg class="virus"><use xlink:href="#virus"></svg>
+    <div class="container text-center">
+        <h2>CODID-19 Official resources</h2>
+
+        <div class="d-md-flex justify-content-center align-items-end flex-wrap">
+            <a class="card m-2" href="https://www.gov.gg/coronavirus" target="_blank">
+                <div class="card-body">
+                    <img src="/images/ext-Guernsey.svg" alt="Guernsey" class="ext-logo">
+                    <div>Guernsey Public Health</div>
+                </div>
+            </a>
+            <a class="card m-2" href="https://www.ecdc.europa.eu/en/covid-19-pandemic" target="_blank">
+                <div class="card-body">
+                    <img src="/images/ext-ECDC.svg" alt="ECDC" class="ext-logo">
+                    <div>European CDC</div>
+                </div>
+            </a>
+            <a class="card m-2" href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019" target="_blank">
+                <div class="card-body">
+                    <img src="/images/ext-WHO.svg" alt="WHO" class="ext-logo">
+                    <div>Intrernational Health Organization</div>
+                </div>
+            </a>
+            <a class="card m-2" href="https://www.cdc.gov/coronavirus/2019-nCoV/index.html" target="_blank">
+                <div class="card-body">
+                    <img src="/images/ext-US-CDC.svg" alt="US CDC" class="ext-logo">
+                    <div>USA CDC</div>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% endblock %}
+

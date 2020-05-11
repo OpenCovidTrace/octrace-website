@@ -1,0 +1,58 @@
+{% extends 'page.html' %}
+
+
+{% block meta_title %}
+<title>{{ page.article.title|safe }} - Open COVID Trace newsroom</title>
+<meta name="description" content="Get the Latest COVID-19 news and Government Updates. WHO, CDC, ECDC and Guernsey Public Health">
+{% endblock %}
+
+{% block header %}
+<header>
+    <div class="container">
+        <div class="row">
+            <div class="d-flex col-sm-2 text-left  flex-column justify-content-center">
+                <a href="/newsroom.html" class="btn btn-default">
+                    &larr; All news
+                </a>
+                <br>
+            </div>
+            <div class="col-sm-8 text-center">
+            </div>
+            <div class="d-flex col-sm-2 text-sm-right flex-column justify-content-center">
+            {% block header_right %}
+            <p class="text-muted">{{ page.article.date_str }}</p>
+            {% endblock %}
+            </div>
+        </div>
+    </div>
+</header>
+{% endblock %}
+
+{% block body %}
+<section class="section-basic bg-main section-official">
+    <div class="container">
+        {% set pic = page.article.picture_big %}
+        {% if not pic %}
+        {% set pic = page.article.picture_preview %}
+        {% endif %}
+
+        <h1 class="text-center">{{ page.article.title|safe }}</h1>
+
+        <div class="row">
+            <div class="col-xl-6 col-sm-8 offset-xl-3 offset-sm-2">
+                <p class="blockquote-footer"><a href="{{ page.article.source_url }}">
+                {{ page.article.source }}
+                </a></p>
+
+                {% if pic %}
+                    <img src="{{ pic }}" alt="{{ page.article.source }}"   class="img-responsive" />
+                {% else %}
+                    <img src="{{ page.article.source_pic }}" alt="{{ page.article.title}}" class="img-responsive" />
+                {% endif %}
+
+                {{ page.article.content|safe }}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
