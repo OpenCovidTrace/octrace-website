@@ -9,7 +9,7 @@ Install python requirements by `pip3 install -r requirements.txt`
 
 Install node requirements by `npm install`
 
-## Makefile for a pelican Web site##
+## Makefile for a pelican Web site
 
 Usage:
 
