@@ -2,7 +2,7 @@ pelican==3.7.1
 Flask-Babel==0.11.2
 cssmin==0.2.0
 webassets==0.12.1
-requests==2.18.3
+requests==2.20.0
 Markdown==2.6.8
 Jinja2==2.9.6
 yuicompressor==2.4.8
